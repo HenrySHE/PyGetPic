@@ -1,17 +1,22 @@
 # PyGetPic
-Created by Henry SHE
+Created by **Henry SHE**
+
 Python Getting &amp; Saving Pics
 
 ## 测试Face++成功（2017年2月20日）
 **测试功能**
 - 输入一个图片URL，可以通过Face++得出近似的object或者Scene
 
-测试的图片：
+
+*代码因为涉及到api key所以暂时不放上来，等整合到程序里面开始使用，我会更改掉key然后push上来*
+
+
+**测试的图片：**
 
 ![测试图片](http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg)
 
-运行的结果
-![Results]()
+**运行的结果:**
+![Results](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/run_fpp_results.png)
 
 ## 版本更新（2017年2月19日）
 **更新功能：**
