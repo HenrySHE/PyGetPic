@@ -16,6 +16,7 @@ Python Getting &amp; Saving Pics
 ![测试图片](http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg)
 
 **运行的结果:**
+
 ![Results](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/run_fpp_results.png)
 
 ## 版本更新（2017年2月19日）
