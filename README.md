@@ -2,6 +2,17 @@
 Created by Henry SHE
 Python Getting &amp; Saving Pics
 
+## 测试Face++成功（2017年2月20日）
+**测试功能**
+- 输入一个图片URL，可以通过Face++得出近似的object或者Scene
+
+测试的图片：
+
+![测试图片](http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg)
+
+运行的结果
+![Results]()
+
 ## 版本更新（2017年2月19日）
 **更新功能：**
 - 让用户输入Page Num
