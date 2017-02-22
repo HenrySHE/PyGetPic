@@ -1,8 +1,8 @@
 PyGetPic
 ====
-Created by  **Henry SHE**
+Created by  **Henry SHE** :bowtie:
 
-Python Getting &amp; Saving Pics
+Python Getting :computer: &amp; Saving Pics :rice_scene:
 
 ## 整合Face++图片识别到project 版本（2017年2月21日）
 
