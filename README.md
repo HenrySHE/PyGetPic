@@ -29,14 +29,19 @@ Python Getting :computer: &amp; Saving Pics :rice_scene:
 
 ### 4.测试成功的截图
 
-
 **For循环写入Tag进入数据库结果**
-![For Loop](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-21_for_loop_Analyzing.png)
+
+
+![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-21_for_loop_Analyzing.png)
 
 **将URL,文件名写入'Information'表**
+
+
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-21_%E6%95%B0%E6%8D%AE%E6%8F%92%E5%85%A5%E6%88%90%E5%8A%9F%E4%BB%A3%E7%A0%81.png)
 
 **将URL,Tag写入'Indexing'表**
+
+
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-21_%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%88%90%E5%8A%9F.png)
 
 ## 测试Face++成功（2017年2月20日）
