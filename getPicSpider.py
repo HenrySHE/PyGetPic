@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 # Edit by Henry
-
+# First Edited 2017-2-17 Fri
+# Second Edited 2017-2-19 Sun
+# Third Edited 2017-2-21 Tue
 
 import urllib2
 import re
@@ -83,16 +85,30 @@ class Spider:
                   + url \
                   + "', '" \
                   + real_url + "');"
+            # --------------Test if the record exist-------------------
+            sql2 = "SELECT `id` FROM `information` WHERE `Image_FilePath` = '" + real_url + "'"
             try:
-                cursor.execute(sql)
-                db.commit()
-                print 'No.%s URL INSERT SUCCESSFUL!' % num
-                num = num + 1
+                cursor.execute(sql2)
+                row_count = cursor.rowcount
+                print 'The row count is :', row_count
+                if row_count == 0:
+                    try:
+                        cursor.execute(sql)
+                        db.commit()
+                        print 'No.%s URL INSERT SUCCESSFUL!' % num
+                        num = num + 1
+                    except:
+                        # Rollback in case there is any error
+                        db.rollback()
+                        print 'SORRY,INSERT FAILED...'
+                        # 关闭数据库连接
+                else:
+                    print 'The data has already exist, no need to insert.'
+                    continue
             except:
                 # Rollback in case there is any error
                 db.rollback()
                 print 'SORRY,INSERT FAILED...'
-                # 关闭数据库连接
         db.close()
         print '===============Database Closed==================='
         print 'All job is finished, please check your Database!'
@@ -121,15 +137,17 @@ class Spider:
             print 'The whole JSON content is:',r.text,
             # testType = 'objects',
             # testType = 'scenes'
+            print "====================================="
             self.show_json('objects',r,string_url)
             self.show_json('scenes',r,string_url)
+            print "====================================="
             i += 1
 
     def show_json(self,testType,r,single_url):
         print 'From now on the single_url address is:', single_url
 
         id = (str)(self.get_image_id(single_url))
-        print '\n==================  Test %s Start=====================' % testType
+        print '\n-----[End of Test %s]------' % testType
         # -----------This is used to show all the JSON in Dictionary type
         # print r.json()
         # print r.json()["time_used"].encode('utf-8')
@@ -138,7 +156,7 @@ class Spider:
         db = MySQLdb.connect("localhost", "root", "", "fyp")
         cursor = db.cursor()
         if length > 0:
-            print 'It has some %s in this picture!' % testType, '\n'
+            print '<---It has some %s in this picture!' % testType
             temp_length = length - 1
             tamale = 0
             while (tamale <= temp_length):
@@ -146,20 +164,34 @@ class Spider:
                 print 'The No.%s key word is:' % (tamale + 1), r.json()[testType][tamale]["value"]
                 print 'The No.%s key word confidence is' % (tamale + 1), r.json()[testType][tamale]["confidence"], '%', '\n'
                 sql = "INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, '"+ id +"', '" + r.json()[testType][tamale]["value"]  + "', '" + '6' + "', '0');"
+                sql2 = "SELECT `Tag_ID` FROM `indexing` WHERE `Image_ID` = '" + id + "' AND `Tag` = '" + r.json()[testType][tamale]["value"]  + "'"
                 try:
-                    cursor.execute(sql)
-                    db.commit()
-                    print 'TAG %s INSERT SUCCESSFUL!'%r.json()[testType][tamale]["value"]
+                    cursor.execute(sql2)
+                    row_count = cursor.rowcount
+                    if row_count == 0:
+                        try:
+                            cursor.execute(sql)
+                            db.commit()
+                            print 'TAG %s INSERT SUCCESSFUL!'%r.json()[testType][tamale]["value"]
+                            tamale = tamale + 1
+                        except:
+                            # Rollback in case there is any error
+                            db.rollback()
+                            print 'SORRY,INSERT FAILED...'
+                            # 关闭数据库连接
+                    else:
+                        print "This tag has already exist in the database!"
+                        tamale = tamale + 1
+                        continue
                 except:
                     # Rollback in case there is any error
                     db.rollback()
-                    print 'SORRY,INSERT FAILED...'
-                    # 关闭数据库连接
-                tamale = tamale + 1
+                    print "SORRY,CONNECTION FAILED..."
+
         else:
             print 'This picture might not belongs to %s type' % testType
         db.close()
-        print '=====================End of Test %s========================' % testType
+        print '-----[End of Test %s]------' % testType
 
     def get_image_id(self, single_url):
         db2 = MySQLdb.connect("localhost", "root", "", "fyp")
@@ -184,12 +216,14 @@ spider = Spider()
 # print 'The page number you have input is: ', pageNum
 #pic_contents = spider.getContents(pageNum)
 #print pic_contents
-# ----------------Test Successful FULL URL
+
+# ----------------测试完整url(success)--------------
 # print spider.get_whole_url(pic_contents)
 #whole_url = spider.get_whole_url(pic_contents)
 #print whole_url
 
-url_url = [r'http://www.socwall.com/images/wallpapers/73788-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73784-290x260.jpg']
+#-----------------测试写入indexing Tag的时候是否能匹配到image id (success)-----------
+# url_url = [r'http://www.socwall.com/images/wallpapers/73788-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73784-290x260.jpg']
 url_url = [r'http://www.socwall.com/images/wallpapers/73719-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73718-290x260.jpg']
 spider.print_fpp(url_url)
 
@@ -203,5 +237,9 @@ spider.print_fpp(url_url)
 # url = 'http://www.baidu.com'
 # spider.print_fpp(url)
 
-# ----------------------Test saving url into fyp, information able-------------------
+# ----------------------Test inserting duplicate data into 'information' table (success)-------------------
+# dup_url = [r'73788-290x260.jpg']
+# spider.insert_info(dup_url)
+
+
 
