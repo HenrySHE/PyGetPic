@@ -3,6 +3,35 @@ PyGetPic
 Created by  **Henry SHE** :bowtie:
 
 Python Getting :computer: &amp; Saving Pics :rice_scene:
+## 交接JSP Project版本（2017年2月27日）
+
+### 1.功能：
+1. 适配之前的FYP Project；
+2. 存入indexing表的image id是通过search来匹配实现，使得JSP project在搜索图片的时候可以返回图片结果；
+3. 两张表，在插入数据的时候（存图片URL、加Tag）的时候，可以实现查重，避免返回的结果是重复的
+
+### 2.运行截图：
+
+**搜索通过py文件存储的tag的结果&返回的图片**
+> 搜索"pond"返回的结果，这两张图片都是通过爬虫爬取的图片，然后tag也是通过爬虫添加的。
+
+![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_1.png)
+
+** Image Num 测试**
+> 因为存入搜索tag的时候是通过image id去match到information表格中的URL，所以我需要先获取到image id。测试成功结果：
+
+![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_3.png)
+
+**存入数据库成功截图**
+
+![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_4.png)
+
+**Information & Indexing 查重复成功截图**
+
+![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_information%E6%9F%A5%E9%87%8D%E6%88%90%E5%8A%9F%E6%88%AA%E5%9B%BE.png)
+
+![](https://github.com/HenrySHE/PyGetPic/blob/master/ScreenShots/2017-2-27_tag%E6%A3%80%E9%AA%8C%E6%88%90%E5%8A%9F.png)
+
 
 ## 整合Face++图片识别到project 版本（2017年2月21日）
 
