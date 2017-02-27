@@ -1,8 +1,6 @@
 # -*- coding:utf-8 -*-
 # Edit by Henry
-# First Edited 2017-2-17 Fri
-# Second Edited 2017-2-19 Sun
-# Third Edited 2017-2-21 Tue
+
 
 import urllib2
 import re
@@ -82,9 +80,9 @@ class Spider:
             print 'The real_url is : ',real_url
             sql = "INSERT INTO `information` " \
                   "(`id`, `Image_FileName`, `Image_FilePath`) VALUES (NULL, '" \
-                  + real_url \
+                  + url \
                   + "', '" \
-                  + url + "');"
+                  + real_url + "');"
             try:
                 cursor.execute(sql)
                 db.commit()
@@ -102,8 +100,9 @@ class Spider:
 
     def print_fpp(self,contents):
         #print 'Analyzing the url:',contents
-        temp = 0
-        while temp <= (len(contents)-1):
+        i = 0
+        string_url = ''
+        while i <= (len(contents)-1):
             data = {
                 'api_key':self.APIkey,
                 'api_secret':self.APISecret,
@@ -111,21 +110,25 @@ class Spider:
                 # 'image_url':'http://www.tianqi.com/upload/article/15-06-10/XzKG_150610052612_1.jpg'
                 # This URL is a picture of panda (with some text on it)
                 # 'image_url':'http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg'
-                'image_url': contents[temp]
+                'image_url': contents[i]
             }
             r = requests.post(self.request_url,data)
+            string_url = contents[i]
+
             print '\n','The receive content type is:',r.headers['content-type']
             # r.encoding
             # -----------This code is used to print the JSON file in text format
             print 'The whole JSON content is:',r.text,
             # testType = 'objects',
             # testType = 'scenes'
-            self.show_json('objects',r,contents[temp])
-            self.show_json('scenes',r,contents[temp])
-            temp = temp + 1
+            self.show_json('objects',r,string_url)
+            self.show_json('scenes',r,string_url)
+            i += 1
 
     def show_json(self,testType,r,single_url):
         print 'From now on the single_url address is:', single_url
+
+        id = (str)(self.get_image_id(single_url))
         print '\n==================  Test %s Start=====================' % testType
         # -----------This is used to show all the JSON in Dictionary type
         # print r.json()
@@ -140,9 +143,9 @@ class Spider:
             tamale = 0
             while (tamale <= temp_length):
                 # INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, 'http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg', 'panda', '5', '5');
-                print 'The No.%s key word is:' % tamale, r.json()[testType][tamale]["value"]
-                print 'The No.%s key word confidence is' % tamale, r.json()[testType][tamale]["confidence"], '%', '\n'
-                sql = "INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, '"+ single_url +"', '" + r.json()[testType][tamale]["value"]  + "', '" + '6' + "', '0');"
+                print 'The No.%s key word is:' % (tamale + 1), r.json()[testType][tamale]["value"]
+                print 'The No.%s key word confidence is' % (tamale + 1), r.json()[testType][tamale]["confidence"], '%', '\n'
+                sql = "INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, '"+ id +"', '" + r.json()[testType][tamale]["value"]  + "', '" + '6' + "', '0');"
                 try:
                     cursor.execute(sql)
                     db.commit()
@@ -158,20 +161,40 @@ class Spider:
         db.close()
         print '=====================End of Test %s========================' % testType
 
+    def get_image_id(self, single_url):
+        db2 = MySQLdb.connect("localhost", "root", "", "fyp")
+        cursor = db2.cursor()
+        # SELECT `id` FROM `information` WHERE `Image_FilePath` = 'http://www.socwall.com/images/wallpapers/73875-290x260.jpg'
+        sql2 = "SELECT `id` FROM `information` WHERE `Image_FilePath` = '" + single_url + "'"
+        image_id = ''
+        results = 0
+        try:
+            cursor.execute(sql2)
+            results = cursor.fetchone()[0]
+        except:
+            db2.rollback()
+            print 'SORRY,can not match any image id...'
+        db2.close()
+        print 'The image id is:', results
+        return results
 
 # -----------------Test the whole process of printing out the results---------------
-pageNum = raw_input("Hello! Please input the Page Number :")
-print 'The page number you have input is: ', pageNum
 spider = Spider()
-pic_contents = spider.getContents(pageNum)
+# pageNum = raw_input("Hello! Please input the Page Number :")
+# print 'The page number you have input is: ', pageNum
+#pic_contents = spider.getContents(pageNum)
 #print pic_contents
 # ----------------Test Successful FULL URL
 # print spider.get_whole_url(pic_contents)
 #whole_url = spider.get_whole_url(pic_contents)
 #print whole_url
-url_url = [r'http://www.socwall.com/images/wallpapers/73875-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73874-290x260.jpg']
+
+url_url = [r'http://www.socwall.com/images/wallpapers/73788-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73784-290x260.jpg']
+url_url = [r'http://www.socwall.com/images/wallpapers/73719-290x260.jpg',r'http://www.socwall.com/images/wallpapers/73718-290x260.jpg']
 spider.print_fpp(url_url)
 
+# testimageid = 'http://www.socwall.com/images/wallpapers/73788-290x260.jpg'
+# print spider.get_image_id(testimageid)
 # spider.insert_info(Pic_contents)
 
 
