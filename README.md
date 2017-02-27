@@ -17,7 +17,7 @@ Python Getting :computer: &amp; Saving Pics :rice_scene:
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_1.png)
 
-** Image Num 测试**
+**Image id 测试**
 > 因为存入搜索tag的时候是通过image id去match到information表格中的URL，所以我需要先获取到image id。测试成功结果：
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_3.png)
