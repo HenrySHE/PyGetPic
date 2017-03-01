@@ -6,59 +6,59 @@ Python Getting :computer: &amp; Saving Pics :rice_scene:
 ## 交接JSP Project版本（2017年2月27日）
 
 ### 1.功能：
-1. 适配之前的FYP Project；
-2. 存入indexing表的image id是通过search来匹配实现，使得JSP project在搜索图片的时候可以返回图片结果；
-3. 两张表，在插入数据的时候（存图片URL、加Tag）的时候，可以实现查重，避免返回的结果是重复的
+1. 適配之前的FYP Project；
+2. 存入indexing表的image id是通過search來匹配實現，使得JSP project在搜索圖片的時候可以返回圖片結果；
+3. 兩張表，在插入數據的時候（存圖片URL、加Tag）的時候，可以實現查重（提前查看數據庫是否已經存在已知Tag），避免搜索詞語的時候返重複的結果
 
-### 2.运行截图：
+### 2.運行截圖：
 
-**搜索通过py文件存储的tag的结果&返回的图片**
-> 搜索"pond"返回的结果，这两张图片都是通过爬虫爬取的图片，然后tag也是通过爬虫添加的。
+**搜索通過py文件存儲的tag的結果&返回的圖片**
+> 搜索"pond"返回的結果，這兩張圖片都是通過爬蟲爬取的圖片，然後tag也是通過爬蟲添加的。
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_1.png)
 
-**Image id 测试**
-> 因为存入搜索tag的时候是通过image id去match到information表格中的URL，所以我需要先获取到image id。测试成功结果：
+**Image id 測試**
+> 因為存入搜索tag的時候是通過image id去match到information表格中的URL，所以我需要先獲取到image id。測試成功結果：
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_3.png)
 
-**存入数据库成功截图**
+**存入數據庫成功截圖**
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_4.png)
 
-**Information & Indexing 查重复成功截图**
+**Information & Indexing 查重複成功截圖**
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-27_information%E6%9F%A5%E9%87%8D%E6%88%90%E5%8A%9F%E6%88%AA%E5%9B%BE.png)
 
 ![](https://github.com/HenrySHE/PyGetPic/blob/master/ScreenShots/2017-2-27_tag%E6%A3%80%E9%AA%8C%E6%88%90%E5%8A%9F.png)
 
 
-## 整合Face++图片识别到project 版本（2017年2月21日）
+## 整合Face++圖片識別到project 版本（2017年2月21日）
 
 ### 1.主要的更新
 
-1. 更改url获取方式，改成直接获取xxx.jpg的格式
-2. 添加方法：`def get_whole_url(self,contents)`，用户可以通过调用这个方法获取完整的url
-3. 添加方法：`def insert_info(self, contents)`,用户可以将获取的URL List存储到'fyp'下面的'Information'的表格中。
-4. 添加方法：`def print_fpp(),show_json(self,testType,r,single_url)`,用来将URL List发送到Face++分析Tag,然后存储到'fyp'下'indexing'的表格里面
-5. 上传fyp表格（还未测试前的表格）
+1. 更改url獲取方式，改成直接獲取xxx.jpg的格式
+2. 添加方法：`def get_whole_url(self,contents)`，用戶可以通過調用這個方法獲取完整的url
+3. 添加方法：`def insert_info(self, contents)`,用戶可以將獲取的URL List存儲到'fyp'下面的'Information'的表格中。
+4. 添加方法：`def print_fpp(),show_json(self,testType,r,single_url)`,用來將URL List發送到Face++分析Tag,然後存儲到'fyp'下'indexing'的表格里面
+5. 上傳fyp表格（還未測試前的表格）
 
-### 2.即将实现的功能
+### 2.即將實現的功能
 
-1. 通过分析Confidence去存储positive feedback(初始的ClickTimes)
+1. 通過分析Confidence去存儲positive feedback(初始的ClickTimes)
 
 
-### 3.测试Face++ 文字识别模块
+### 3.測試Face++ 文字識別模塊
 
-今天测试了一下Face++ 的识别图片中的文字模块，决定弃用。原因如下：
-* 精确度好像不太够（~~可能是我测试的图片的问题?~~）
-	* 我测试的第一张图片是“3D Text"结果识别的结果是“3DT”
-	* 第二张测试的是写着“TEXT”的图片，全部大写，但是识别结果是“EX”
-* Picture Size:图片的大小限定在800*800以内的png或者jpg文件，小了点。
+今天測試了一下Face++ 的識別圖片中的文字模塊，決定棄用。原因如下：
+* 精確度好像不太夠（~~可能是我測試的圖片的問題?~~）
+* 我測試的第一張圖片是“3D Text"結果識別的結果是“3DT”
+* 第二張測試的是寫著“TEXT”的圖片，全部大寫，但是識別結果是“EX”
+* Picture Size:圖片的大小限定在800*800以內的png或者jpg文件，小了點。
 
-### 4.测试成功的截图
+### 4.測試成功的截圖
 
-**For循环写入Tag进入数据库结果**
+**For循環寫入Tag進入數據庫結果**
 
 
 ![](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-21_for_loop_Analyzing.png)
@@ -80,30 +80,30 @@ Python Getting :computer: &amp; Saving Pics :rice_scene:
 *代码因为涉及到api key所以暂时不放上来，等整合到程序里面开始使用，我会更改掉key然后push上来*
 
 
-**测试的图片：**
+**測試的圖片：**
 
-![测试图片](http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg)
+![測試圖片](http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg)
 
-**运行的结果:**
+**運行的結果:**
 
 ![Results](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/run_fpp_results.png)
 
 ## 版本更新（2017年2月19日）
 **更新功能：**
-- 让用户输入Page Num
-- 把获取的URL补充成完整的URL
-- 写入测试的本地Database
+- 讓用戶輸入Page Num
+- 把獲取的URL補充成完整的URL
+- 寫入測試的本地Database
 
-**测试成功截图：**
+**測試成功截圖：**
 
 ![Running Code](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-19_RunCode.png)
 
-**数据库写入截图：**
+**數據庫寫入截圖：**
 
 ![Running Code](https://raw.githubusercontent.com/HenrySHE/PyGetPic/master/ScreenShots/2017-2-19_DB.png)
 
-## 暂时测试成功的demo版本(2017年2月17日)
+## 暫時測試成功的demo版本(2017年2月17日)
 **功能：**
-- 访问图片网站
+- 訪問圖片網站
 
-- 获取网站主页.jpg的文件名
+- 獲取網站主頁.jpg的文件名
