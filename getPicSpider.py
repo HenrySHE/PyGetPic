@@ -13,8 +13,8 @@ class Spider:
     def __init__(self):
         self.siteURL = 'http://www.socwall.com/wallpapers/page:'
         self.request_url = 'https://api-cn.faceplusplus.com/imagepp/beta/detectsceneandobject'
-        self.APIkey = 'UjeknOZAwh59ya76BhF4vdf8fueapSZw'
-        self.APISecret = 'jC-vkgRP51e7bzITakIL70wu884lO749'
+        self.APIkey = ''
+        self.APISecret = ''
 
     def getPage(self, pageNum):
         # url = self.siteURL + "/page=" + str(pageIndex)
