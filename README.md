@@ -3,6 +3,21 @@ PyGetPic
 Created by  **Henry SHE** :bowtie:
 
 Python Getting :computer: &amp; Saving Pics :rice_scene:
+## 暂定最終版（2017年4月20日）
+
+### 更新功能：
+1. 允许用户输入页码，自动插入数据库+加Tag
+2. 允许用户查看/修改/删除 指定的Tag（根据用户输入Tag ID ）
+
+### 運行流程：
+自動加Tag：首先用戶先輸入Page Number（即壁紙網站的頁碼），然後將對應頁碼下的圖片全部存入information的表格裏；
+若是URL已經存在Database，Shell裏面告知操作者已經存在Database，若是還沒存在，會告訴操作者Tag已經自動添加進入數據庫。
+
+查看、修改、刪除Tag，用戶輸入Tag ID，然後查看，刪除對應的Tag，或者修改Tag 裏面的內容。
+
+
+
+
 ## 交接JSP Project版本（2017年2月27日）
 
 ### 1.功能：
