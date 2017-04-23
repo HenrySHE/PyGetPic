@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 # Edit by Henry
-# Last Edited Date: 20/04/2017
 
 import urllib2
 import re
 import MySQLdb
 import requests
 import time
+from nltk.corpus import wordnet
 
 
 class Spider:
@@ -160,6 +160,8 @@ class Spider:
             while (tamale <= temp_length):
                 # INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, 'http://s.visitbeijing.com.cn/uploadfile/2015/1127/20151127051010253.jpg', 'panda', '5', '5');
                 print 'The No.%s key word is:' % (tamale + 1), r.json()[testType][tamale]["value"]
+                syns = wordnet.synsets((tamale + 1), r.json()[testType][tamale]["value"])
+                print 'The Explanation of this word is :'%syns[0].definition()
                 print 'The No.%s key word confidence is' % (tamale + 1), r.json()[testType][tamale][
                     "confidence"], '%'
                 sql = "INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) VALUES (NULL, '" + id + "', '" + \
@@ -233,7 +235,6 @@ class Spider:
             sql = "SELECT * FROM `indexing` WHERE `Tag_ID` =" + tag_id
             try:
                 cursor.execute(sql)
-                cursor.execute(sql)
                 results = cursor.fetchall()
                 for row in results:
                     Tag_ID = row[0]
@@ -267,6 +268,47 @@ class Spider:
                 db.rollback()
                 print '-----Sorry update failed.'
             db.close()
+        elif choice == '4':
+            # sql = "SELECT `Tag` FROM `indexing` WHERE `Tag_ID` =" + tag_id
+            sql = "SELECT * FROM `indexing` WHERE `Tag_ID` =" + tag_id
+            try:
+                cursor.execute(sql)
+                results = cursor.fetchall()
+                for row in results:
+                    tid = row[0]
+                    iid = row[1]
+                    tag = row[2]
+
+                # print tag
+                syns = wordnet.synsets(tag)
+                print '-----The <<tag>> is:',tag
+                print '-----The <<image id>> is:',iid
+                print '-----The <<definition>> is:',syns[0].definition()
+                print '==================='
+                i = 0
+                while (i < len(syns)):
+                    print 'No.', i + 1, ': ',syns[i].lemmas()[0].name()
+                    i = i + 1
+                print '==================='
+                j = int(raw_input('-----Please input a tag you want to add(0 return to menu):'))
+                if j == 0:
+                    return
+                else:
+                    sql2 = "INSERT INTO `indexing` (`Tag_ID`, `Image_ID`, `Tag`, `ClickTimes`, `SuggestClickTimes`) " \
+                           "VALUES (NULL, '"  + iid + "', '" + syns[j-1].lemmas()[0].name() + "', '6', '0');"
+                    try:
+                        cursor.execute(sql2)
+                        db.commit()
+                        print '-----Data has been inserted.'
+                    except:
+                        db.rollback()
+                    db.close()
+            except:
+                print "-----Error: unable to get data"
+                db.close()
+        else:
+            db.close()
+            print '-----Wrong input! Please input correct answer'
 
 
     def main(self):
@@ -274,7 +316,7 @@ class Spider:
         print 'Welcome! What did you want to do?'
         print '----------------------------------'
         print '1. Crawling Picture from the Wall paper website.'
-        print '2. Add/View/Edit data from the database.'
+        print '2. Add Synonyms/View/Edit/Delete Tag from the database.'
         print '0. Exit'
         choice = raw_input("Please input your choice:")
         if choice == '1':
@@ -298,6 +340,7 @@ class Spider:
             print '-----1.Viewing Tag through tag id'
             print '-----2.Deleting Tag through tag id'
             print '-----3.Editing Tag through tag id'
+            print '-----4.Add Synonyms Tags Through tag id'
             choice2 = raw_input('-----Your choice is:')
             tag_id = raw_input('-----Please input tag id:')
             self.operate_tag(choice2,tag_id)

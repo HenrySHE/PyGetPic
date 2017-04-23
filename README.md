@@ -3,7 +3,10 @@ PyGetPic
 Created by  **Henry SHE** :bowtie:
 
 Python Getting :computer: &amp; Saving Pics :rice_scene:
-## 暂定最終版（2017年4月20日）
+## 暂定最终版（2017年4月22日）
+1. 加入WordNet，允许用户在现有的tag的基础上去添加同义词Tag
+
+## 更新版本（2017年4月20日）
 
 ### 更新功能：
 1. 允许用户输入页码，自动插入数据库+加Tag
