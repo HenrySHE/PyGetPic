@@ -39,6 +39,7 @@ Running process:
 2. 存入indexing表的image id是通過search來匹配實現，使得JSP project在搜索圖片的時候可以返回圖片結果；
 3. 兩張表，在插入數據的時候（存圖片URL、加Tag）的時候，可以實現查重（提前查看數據庫是否已經存在已知Tag），避免搜索詞語的時候返重複的結果
 
+
 1. Fit into the former FYP project
 2  Using image id to match the searching process, making the JSP project in the search for pictures can return the picture results;
 3. Add two tables, insert the data (save the image URL, add Tag), you can check (in advance to see if the database already exists known Tag), to avoid the search results when the return duplicate results.
