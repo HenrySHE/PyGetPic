@@ -4,26 +4,26 @@ Created by  **Henry SHE** :bowtie:
 
 Python Getting :computer: &amp; Saving Pics :rice_scene:
 ## 暂定最终版（2017年4月22日）
-1. 加入WordNet，允许用户在现有的tag的基础上去添加同义词Tag
-
-Final Version:
-Join WordNet, allowing users to add synonyms Tag based on the existing tag
+1. 加入WordNet，允许用户在现有的tag的基础上去添加同义词Tag(Add WordNet, allowing users to add synonyms Tag based on the existing tag)
 
 ----------------
 ## 更新版本（2017年4月20日）
-
+ 
 ### 更新功能
 1. 允许用户输入页码，自动插入数据库+加Tag 
 2. 允许用户查看/修改/删除 指定的Tag（根据用户输入Tag ID ）
 
+
 Updated Feature:
-1. Allow users to enter the page number, automatically insert the database + Tag
-2. Allow users to view / modify / delete the specified Tag (based on user input Tag ID)
+
+- Allow users to enter the page number, automatically insert the database + Tag
+- Allow users to view / modify / delete the specified Tag (based on user input Tag ID)
 
 ### 運行流程：
 自動加Tag：首先用戶先輸入Page Number（即壁紙網站的頁碼），然後將對應頁碼下的圖片全部存入information的表格裏；
 若是URL已經存在Database，Shell裏面告知操作者已經存在Database，若是還沒存在，會告訴操作者Tag已經自動添加進入數據庫。
 查看、修改、刪除Tag，用戶輸入Tag ID，然後查看，刪除對應的Tag，或者修改Tag 裏面的內容。
+
 
 Running process:
 - Tag automatically: First, the user first enter the Page Number (page number of the wallpaper website), and then all the pictures under the page number stored in the information table;
@@ -40,9 +40,9 @@ Running process:
 3. 兩張表，在插入數據的時候（存圖片URL、加Tag）的時候，可以實現查重（提前查看數據庫是否已經存在已知Tag），避免搜索詞語的時候返重複的結果
 
 
-1. Fit into the former FYP project
-2  Using image id to match the searching process, making the JSP project in the search for pictures can return the picture results;
-3. Add two tables, insert the data (save the image URL, add Tag), you can check (in advance to see if the database already exists known Tag), to avoid the search results when the return duplicate results.
+- Fit into the former FYP project
+- Using image id to match the searching process, making the JSP project in the search for pictures can return the picture results;
+- Add two tables, insert the data (save the image URL, add Tag), you can check (in advance to see if the database already exists known Tag), to avoid the search results when the return duplicate results.
 
 ### 2.運行截圖：
 
